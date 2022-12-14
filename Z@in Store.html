@@ -1,0 +1,235 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Store Application</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-icons/font/bootstrap-icons.css">
+    <script src="bootstrap.bundle.min.js"></script>
+    <script src="vue.global.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top">
+        <div class="container-fluid">
+    
+            <div class="navbar-brand">
+               Z@in Store
+            </div>
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#ccc">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="ccc" class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a href="C:\Users\Alsadig\Desktop\تجارة الكترونية\Home1.html" class="nav-link">Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">Store</a>
+                    </li>
+                    
+                    
+                    <li class="nav-item"><a href="C:\Users\Alsadig\Desktop\تجارة الكترونية\contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <p class="navbar-text">Welcome user</p>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<section class="container" id="app">
+    <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#cart-modal">
+        <span class="bi bi-cart"></span>
+    </button>
+
+    <div class="row">
+        <div class="col-2">
+            <div class="accordion" id="y">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#prices">Prices</button>
+                    </div>
+                    <div id="prices" class="collapse accordion-collapse" data-bs-parent="#y">
+                        <div class="list-group">
+                            <a class="list-group-item list-group-item-action" :class="min==0 && max==99999999999 ? 'active':''" href="#" @click="min=0;max=99999999999">All</a>
+                            <a class="list-group-item list-group-item-action" :class="min==0 && max==30000 ? 'active':''" href="#" @click="min=0;max=30000">0 - 30,000</a>
+                            <a class="list-group-item list-group-item-action" :class="min==30000?'active':''" href="#" @click="min=30000;max=60000">30,000 - 60,000</a>
+                            <a class="list-group-item list-group-item-action" :class="min==60000?'active':''" href="#" @click="min=60000;max=90000">60,000 - 90,000</a>
+                            <a class="list-group-item list-group-item-action" :class="min==90000?'active':''" href="#" @click="min=90000;max=99999999999">above 90,000</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#companies">Companies</button>
+                    </div>
+                    <div id="companies" class="collapse accordion-collapse" data-bs-parent="#y">
+                        <div class="list-group">
+                            <a class="list-group-item list-group-item-action" :class="selectedCompany==''?'active':''" @click="selectedCompany=''"  href="#">All</a>
+                            <a class="list-group-item list-group-item-action" :class="selectedCompany=='samsung'?'active':''" @click="selectedCompany='samsung'" href="#">Samsung</a>
+                            <a class="list-group-item list-group-item-action" :class="selectedCompany=='huawei'?'active':''" @click="selectedCompany='huawei'" href="#">Huawei</a>
+                            <a class="list-group-item list-group-item-action" :class="selectedCompany=='iphone'?'active':''" @click="selectedCompany='iphone'" href="#">I Phone</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#condition">Condition</button>
+                    </div>
+                    <div id="condition" class="collapse accordion-collapse" data-bs-parent="#y">
+                        <div class="list-group">
+                            <a class="list-group-item list-group-item-action" :class="selectedCondition==''?'active':''" @click="selectedCondition=''" href="#" >All</a>
+                            <a class="list-group-item list-group-item-action" :class="selectedCondition=='New'?'active':''" @click="selectedCondition='New'" href="#" >New</a>
+                            <a class="list-group-item list-group-item-action" :class="selectedCondition=='Used'?'active':''" @click="selectedCondition='Used'" href="#">Used</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-10">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2" v-for="product in filteredProducts">
+                    <div class="card shadow">
+                        <div style="width: 100%;height:200px;background-size: cover" :style="'background:no-repeat center center url('+product.img+')'"></div>
+                        <div class="card-body">
+                            <span class="badge bg-success rounded-pill float-end">{{product.price}}</span>
+                            <h5 class="card-title">{{product.name}}</h5>
+                            <p class="card-text d-none d-md-block">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, omnis.</p>
+                            <button class="btn btn-outline-success w-100" @click="addToCart(product)">
+                                <span class="bi bi-cart-plus"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div id="cart-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    My Cart
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>No</th>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Subtotal</th>
+                        </tr>
+                        <tr v-for="(item,index) in cart">
+                            <td>{{index+1}}</td>
+                            <td><img :src="item.img" style="width:128px;height:96px"></td>
+                            <td>{{item.name}}</td>
+                            <td>
+                                <button class="btn btn-success btn-sm" @click="item.qty--">-</button>
+                                {{item.qty}}
+                                <button class="btn btn-success btn-sm" @click="item.qty++">+</button>
+
+                            </td>
+                            <td>{{item.price}}</td>
+                            <td>{{item.qty*item.price}}</td>
+                        </tr>
+                        <tr>
+                            <th colspan="4"></th>
+                            <th>Total</th>
+                            <th>{{totalBill}}</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+<script>
+    var app = Vue.createApp({
+        data(){
+            return {
+                selectedCondition:'',
+                selectedCompany:'',
+                min:0,
+                max:99999999999,
+                products:[
+                    {"name":"Samsung Galaxy A80","img":"phones/e1.png","price":85000,"company":"samsung","condition":"New"},
+                    {"name":"Huawei Mate 30" ,"img":"phones/e2.jpg","price":45000,"company":"huawei","condition":"Used"},
+                    {"name":"Iphone 11" ,"img":"phones/e3.jpg","price":90000,"company":"iphone","condition":"New"},
+                    {"name":"Samsung Note20" ,"img":"phones/e4.png","price":90000,"company":"samsung","condition":"New"},
+                    {"name":"Huawei MateX","img":"phones/e5.jpg","price":750000,"company":"huawei","condition":"New"},
+                    {"name":"Iphone12","img":"phones/e6.jpg","price":99500,"company":"iphone","condition":"New"},
+                    {"name":"Samsung Galaxy Fold2","img":"phones/e7.jpg","price":80000,"company":"samsung","condition":"Used"},
+                    {"name":"Huawei p40","img":"phones/e8.jpg","price":60000,"company":"huawei","condition":"New"},
+                    {"name":"Iphone7","img":"phones/m1.jpg","price":25000,"company":"iphone","condition":"New"},
+                    {"name":"Iphone Mini","img":"phones/m2.jpg","price":16000,"company":"iphone","condition":"New"},
+                    {"name":"Samsung Galaxy S9","img":"phones/m3.jpg","price":37000,"company":"samsung","condition":"New"},
+                    {"name":"Samsung Galaxy s10","img":"phones/m4.jpg","price":39500,"company":"samsung","condition":"New"},
+                    {"name":"Iphone Xr","img":"phones/m5.jpg","price":39550,"company":"iphone","condition":"Used"},
+                    {"name":"Huawei Y9","img":"phones/m6.jpg","price":39000,"company":"huawei","condition":"New"},
+                    {"name":"Iphone X","img":"phones/m7.jpg","price":30000,"company":"iphone","condition":"New"},
+                    {"name":"Samsung Galaxy Note8","img":"phones/m8.jpeg","price":39500,"company":"samsung","condition":"Used"},
+                    {"name":"Huawei Y7","img":"phones/c1.webp","price":19700,"company":"huawei","condition":"New"},
+                    {"name":"Iphone Mini","img":"phones/c2.jpg","price":15400,"company":"iphone","condition":"New"},
+                    {"name":"Samsung Galaxy J3","img":"phones/c3.jpg","price":12500,"company":"samsung","condition":"New"},
+                    {"name":"Huawei Nove5","img":"phones/c4.webp","price":19999,"company":"huawei","condition":"New"},
+                    {"name":"Iphone Se","img":"phones/c5.jpg","price":11940,"company":"iphone","condition":"Used"},
+                    {"name":"Samsung J7","img":"phones/c6.jpg","price":18999,"company":"samsung","condition":"New"},
+                    {"name":"Huawei P20","img":"phones/c7.jpg","price":15900,"company":"huawei","condition":"New"},
+                    {"name":"Iphone 6S+","img":"phones/c8.webp","price":18999,"company":"iphone","condition":"New"}
+                ],
+                cart:[]
+            }
+        },
+        methods:{
+            addToCart(product){
+                var qty = prompt("Enter the quantity")
+                qty = parseFloat(qty)
+                console.log(product)
+                var foundProduct = this.cart.find(function (pr){
+                    console.log(pr)
+                    if(pr.name == product.name)
+                        return true
+                })
+                console.log("Found PRoduct is ",foundProduct)
+                if(!foundProduct){
+                    this.cart.push({name:product.name,price:product.price,img:product.img,qty:qty})
+                    console.log(this.cart)
+                }
+                else{
+                    foundProduct.qty+=qty
+                    console.log(this.cart)
+                }
+
+            }
+        },
+        computed:{
+            filteredProducts(){
+
+                return this.products.filter((product) => {
+                    if (product.price >= this.min && product.price < this.max && product.company.toLowerCase().includes(this.selectedCompany.toLowerCase()) && product.condition.toLowerCase().includes(this.selectedCondition.toLowerCase()))
+                        return true
+                })
+
+            },
+            totalBill(){
+                var sum=0
+                this.cart.forEach(function (item){
+                    sum+=item.price*item.qty
+                })
+                return sum
+            }
+        }
+    })
+    app.mount("#app")
+</script>
+</html>

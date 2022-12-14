@@ -1,0 +1,86 @@
+<html>
+<head>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style>
+ .carousel{
+            width: 70%;
+            margin: auto;
+        }
+        .carousel img{
+            width: 100%;
+            height: 60%;
+        }
+    </style>
+    <script src="bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                Z@in Store
+            </div>
+            <ul class="navbar-nav me-auto" >
+
+                <li class="nav-item"><a href="C:\Users\Alsadig\Desktop\تجارة الكترونية\Home1.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="C:\Users\Alsadig\Desktop\تجارة الكترونية\Z@in Store.html" class="nav-link">Store</a></li>
+                
+                
+                <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+               
+                <li class="nav-item"><a href="#" class="nav-link">Welcome User</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="container">
+    
+    
+    </section>
+
+
+
+       <div class="container col-6" style="margin-top:5% ;" >
+
+<label> user name :</label><br>
+<input type="text" placeholder="user name" aria-autocomplete="inline" class="form-control"/><br>
+
+<label>Your phone </label> <br>
+<input type="tel" max="9" min="0" placeholder="+249" class="form-control"> <br>
+<label>Email</label><br>
+<input type="email" placeholder="@gmail.com" class="form-control" ><br>
+<label>Message</label>
+<textarea class="form-control"> </textarea>
+
+
+   <input class="btn btn-primary w-100" type="submit" value="Send" style="margin-top: 25px;" > 
+
+        </div>
+
+        <div id="Send" data-bs-backdrop="static" class="modal fade">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-light">
+                        Thank you 
+                        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        For contact with us
+                    </div>
+                    <div class="modal-footer">
+                        By dovoloper
+                    </div>
+
+
+</body>
+<script>
+
+var modal = new bootstrap.Modal("#Send")
+onclick(function (){
+    modal.show()
+},100)
+
+
+</script>
+</html>
